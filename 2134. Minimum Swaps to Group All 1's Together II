@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int minSwaps(vector<int>& nums) {
+        //given 0-1 circular arr
+        //grp all 1s with min swaps at any** loc
+        int n=nums.size();
+        int c=0;
+        vector<int>num1(nums.begin(),nums.end());
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]==1)
+            c++;
+        }
+        if(c==0) return 0;
+        int f=0;
+        for(int i=0;i<n;i++){
+            num1.push_back(nums[i]);
+            if(i<c && nums[i]==0)
+            f++;
+        }
+        int res=f;
+        for(int i=c;i<2*n;i++){
+            if(num1[i]==0)
+            f++;
+            if(num1[i-c]==0)
+            f--;
+            res=min(res,f);
+        }
+        return res;
+    }
+};
